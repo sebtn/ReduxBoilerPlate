@@ -1,0 +1,25 @@
+.
+├── app
+│   ├── app.js
+│   ├── components
+│   │   └── Main.js
+│   ├── redux-example.js
+│   ├── styles
+│   │   ├── app.scss
+│   │   ├── base
+│   │   │   ├── _core.scss
+│   │   │   └── _variables.scss
+│   │   └── components
+│   └── tests
+│       └── test_index.js
+├── appTree.txt
+├── karma.conf.js
+├── package.json
+├── public
+│   ├── bundle.js
+│   └── index.html
+├── README.md
+├── server.js
+└── webpack.config.js
+
+7 directories, 15 files
