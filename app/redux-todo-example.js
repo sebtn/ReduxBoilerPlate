@@ -9,10 +9,23 @@ let stateDefault = 	{
 }
 
 let reducer = (state = stateDefault, action) => {
-	return state
+	switch (action.type) {
+		case "CHANGE_SEARCHTEXT":
+			return {
+				...state,
+				searchText: action.searchText
+			}
+		default: 
+			return state
+	}
 }
 
 let store = redux.createStore(reducer)
 let currentState = store.getState()
+console.log('Before change: ', currentState)
 
-console.log('C-state: ', currentState )
+store.dispatch({
+	type: "CHANGE_SEARCHTEXT",
+	searchText: "Some new text to search instead of empty string"
+})
+console.log('after change: ', store.getState() )
