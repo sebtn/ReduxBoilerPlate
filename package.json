@@ -1,21 +1,13 @@
 {
-  "name": "biolerplate",
+  "name": "redux-plate",
   "version": "1.0.0",
-  "description": "Boiler plate karma on React.js",
+  "description": "Boiler plate redux and React.js",
   "main": "webpack.config.js",
   "scripts": {
     "test": "karma start"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sebtn/karmaTestingBoilerplate.git"
-  },
-  "author": "",
+  "author": "Seb",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sebtn/karmaTestingBoilerplate/issues"
-  },
-  "homepage": "https://github.com/sebtn/karmaTestingBoilerplate#readme",
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
