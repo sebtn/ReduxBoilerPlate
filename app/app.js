@@ -9,4 +9,4 @@ import './redux-todo-example.js'
 
 'use strict'
 
-ReactDOM.render(<h3>Using Redux</h3>, document.getElementById('root'))
+// ReactDOM.render(<h3>Using Redux</h3>, document.getElementById('root'))
