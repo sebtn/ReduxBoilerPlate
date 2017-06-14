@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 
 import {Route, Router, IndexRoute, hashHistory, Link} from 'react-router'
 import  '././styles/app.scss' 
-import './redux-example.js'
+// import './redux-example.js'
+import './redux-todo-example.js'
 
 'use strict'
 
