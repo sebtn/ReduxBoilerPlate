@@ -1,7 +1,7 @@
 let redux = require('redux')
 
 let stateDefault = {
-	name: 'Some name',
+	name: 'Anonymous',
 	hobbies: [],
 	movies: []
 }
@@ -30,17 +30,29 @@ let reducer = (state = stateDefault, action) => {
 				]
 			}
 /*------------------------------------------------------*/
+			case "REMOVE_HOBBY":
+			return {
+				...state,
+				hobbies: state.hobbies.filter( (hobby) => hobby.id !== action.id )
+			}
+/*------------------------------------------------------*/
 			case "ADD_MOVIE":
 			return {
 				...state,
 				movies: [
-					state.movies,
+					...state.movies,
 					{
 						id: nextMovieId++,
 						title: action.title,
 						genre: action.genre
 					}
 				]
+			}
+/*------------------------------------------------------*/
+			case "REMOVE_MOVIE":
+			return {
+				...state,
+				movies: state.movies.filter( (movie) => movie.id !== action.id )
 			}
 /*------------------------------------------------------*/
 		default: 
@@ -69,7 +81,7 @@ let unsubscribe =  store.subscribe( () => {
 
 /*------------------------------------------------------*/
 let currentState = store.getState()
-	// console.log('name is : ', currentState)
+	console.log('name is : ', currentState)
 
 /*------------------------------------------------------*/
 /*Cb fires into subscribe*/
@@ -81,6 +93,17 @@ store.dispatch({
 store.dispatch({
 	type: "ADD_HOBBY",
 	hobby: "Build machines"
+})
+
+store.dispatch({
+	type: "ADD_HOBBY",
+	hobby: "Not run"
+})
+
+/*remove hobby*/
+store.dispatch({
+	type: "REMOVE_HOBBY",
+	id: 2
 })
 
 store.dispatch({
@@ -101,6 +124,11 @@ store.dispatch({
 
 store.dispatch({
 	type: "ADD_MOVIE",
-	title: "Favorite movie numero 2",
+	title: "Batman 2",
 	genre: "ficion asion"
+})
+
+store.dispatch({
+	type: "REMOVE_MOVIE",
+	id: 1
 })
