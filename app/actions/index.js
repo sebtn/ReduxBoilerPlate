@@ -59,16 +59,16 @@ export let completeLocationFetch = (url) => {
 }
 
 /*------------------------------------------------------*/
-export let fetchLocation = () => {
-	return (dispatch, getState) =>  {
-		dispatch(startLocationFetch())
+// export let fetchLocation = () => {
+// 	return (dispatch, getState) =>  {
+// 		dispatch(startLocationFetch())
 
-		axios.get("http://ipinfo.io").then( function (res)  {
-			let location = res.data.loc
-			let baseUrl = "https://maps.google.com?q="
+// 		axios.get("http://ipinfo.io").then( function (res)  {
+// 			let location = res.data.loc
+// 			let baseUrl = "https://maps.google.com?q="
 
-			dispatch(completeLocationFetch(baseUrl + location))
-		})		
-	}
-}
+// 			dispatch(completeLocationFetch(baseUrl + location))
+// 		})		
+// 	}
+// }
  

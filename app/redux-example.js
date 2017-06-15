@@ -1,13 +1,11 @@
-let redux = require('redux')
 import axios from 'axios'
 
-// let actions = require('./actions/index')
+let redux = require('redux')
 import { changeName, addMovie, addHobby, removeHobby, 
 	removeMovie, startLocationFetch, completeLocationFetch } from './actions/index'
 let store = require('./store/configureStore').configure()
-// import configure, {store} from '/home/seb/Sites/ReduxBoilerPlate/app/store/configureStore.js'
-'use strict'
 
+'use strict'
 
 /*------------------------------------------------------*/
 /*Subscribe to changes to watch changes state using a call back 
