@@ -9,7 +9,7 @@ let nextHobbyId = 1
 let nextMovieId = 1 
 
 /*------------------------------------------------------*/
-let reducer = (state = stateDefault, action) => {
+let oldReducer = (state = stateDefault, action) => {
 	switch (action.type) {
 /*------------------------------------------------------*/
 		case "CHANGE_NAME":
@@ -58,8 +58,72 @@ let reducer = (state = stateDefault, action) => {
 		default: 
 			return state
 	}
-/*------------------------------------------------------*/
 }
+
+/*------------------------------------------------------*/
+let nameReducer = (state= 'Anonymous', action) => {
+	switch (action.type) {
+		case "CHANGE_NAME":
+			/*No spread operator because only manages one prop*/
+			return action.name
+		default: 			
+			return state
+	}	
+}
+
+/*------------------------------------------------------*/
+let hobbiesReducer = (state = [], action) => {
+/*------------------------------------------------------*/
+	switch (action.type) {
+		case "ADD_HOBBY":
+		/*No spread operator because only manages one prop
+		state.hobbies does not exist anymore*/		
+		return [
+			...state,
+			{
+				id: nextHobbyId++,
+				hobby: action.hobby
+			}
+		]
+/*------------------------------------------------------*/
+		case "REMOVE_HOBBY":
+			return  state.filter( (hobby) => hobby.id !== action.id )
+/*------------------------------------------------------*/
+		default:
+			return state
+	}
+}
+
+/*------------------------------------------------------*/
+let moviesReducer = (state = [], action ) => {
+/*------------------------------------------------------*/
+	switch (action.type) {
+		case "ADD_MOVIE":
+		/*No spread operator because only manages one prop
+		state.movies does not exist anymore*/
+		return [
+			...state,
+			{
+				id: nextMovieId++,
+				title: action.title,
+				genre: action.genre
+			}
+		]
+		case "REMOVE_MOVIE":
+			return state.filter( (movie) => movie.id !== action.id )
+/*------------------------------------------------------*/
+		default:
+		return state			
+	}
+}
+
+/*------------------------------------------------------*/
+let reducer = redux.combineReducers({
+	/*Manage name with name reducer*/
+	name: nameReducer,
+	hobbies: hobbiesReducer,
+	movies: moviesReducer
+})
 
 /*------------------------------------------------------*/
 /*Middleware = redux.compose*/
@@ -84,7 +148,7 @@ let currentState = store.getState()
 	console.log('name is : ', currentState)
 
 /*------------------------------------------------------*/
-/*Cb fires into subscribe*/
+/*Cb dispatched into subscribe, cb are actions*/
 store.dispatch({
 	type: "CHANGE_NAME",
 	name: "Seb"
@@ -128,6 +192,7 @@ store.dispatch({
 	genre: "ficion asion"
 })
 
+/*Remove movie*/
 store.dispatch({
 	type: "REMOVE_MOVIE",
 	id: 1
