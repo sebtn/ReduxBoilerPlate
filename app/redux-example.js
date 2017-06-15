@@ -1,65 +1,6 @@
 let redux = require('redux')
 
-let stateDefault = {
-	name: 'Anonymous',
-	hobbies: [],
-	movies: []
-}
-let nextHobbyId = 1 
-let nextMovieId = 1 
-
-/*------------------------------------------------------*/
-let oldReducer = (state = stateDefault, action) => {
-	switch (action.type) {
-/*------------------------------------------------------*/
-		case "CHANGE_NAME":
-			return {
-				...state,
-				name: action.name
-			}		
-/*------------------------------------------------------*/
-			case "ADD_HOBBY":
-			return {
-				...state,
-				hobbies: [
-				...state.hobbies,
-					{
-						id: nextHobbyId++,
-						hobby: action.hobby
-					}
-				]
-			}
-/*------------------------------------------------------*/
-			case "REMOVE_HOBBY":
-			return {
-				...state,
-				hobbies: state.hobbies.filter( (hobby) => hobby.id !== action.id )
-			}
-/*------------------------------------------------------*/
-			case "ADD_MOVIE":
-			return {
-				...state,
-				movies: [
-					...state.movies,
-					{
-						id: nextMovieId++,
-						title: action.title,
-						genre: action.genre
-					}
-				]
-			}
-/*------------------------------------------------------*/
-			case "REMOVE_MOVIE":
-			return {
-				...state,
-				movies: state.movies.filter( (movie) => movie.id !== action.id )
-			}
-/*------------------------------------------------------*/
-		default: 
-			return state
-	}
-}
-
+'use strict'
 /*------------------------------------------------------*/
 let nameReducer = (state= 'Anonymous', action) => {
 	switch (action.type) {
@@ -71,7 +12,17 @@ let nameReducer = (state= 'Anonymous', action) => {
 	}	
 }
 
+/* Action Generator: Need to receive the args 
+to make the dispatch, pass type as arg is not necessary */
+let changeName = (name) => {
+	return {
+		type: "CHANGE_NAME",
+		name: name
+	}
+}
+
 /*------------------------------------------------------*/
+let nextHobbyId = 1 
 let hobbiesReducer = (state = [], action) => {
 /*------------------------------------------------------*/
 	switch (action.type) {
@@ -79,6 +30,7 @@ let hobbiesReducer = (state = [], action) => {
 		/*No spread operator because only manages one prop
 		state.hobbies does not exist anymore*/		
 		return [
+			/*old array*/
 			...state,
 			{
 				id: nextHobbyId++,
@@ -93,8 +45,25 @@ let hobbiesReducer = (state = [], action) => {
 			return state
 	}
 }
+/*Generators*/
+/*------------------------------------------------------*/
+let addHobby = (hobby) => {
+	return {
+		type: "ADD_HOBBY",
+		hobby,
+	}
+}
+/*------------------------------------------------------*/
+let removeHobby = (id) => {
+	return {
+		type: "REMOVE_HOBBY",
+		id,
+	}
+}
+
 
 /*------------------------------------------------------*/
+let nextMovieId = 1 
 let moviesReducer = (state = [], action ) => {
 /*------------------------------------------------------*/
 	switch (action.type) {
@@ -102,6 +71,7 @@ let moviesReducer = (state = [], action ) => {
 		/*No spread operator because only manages one prop
 		state.movies does not exist anymore*/
 		return [
+			/*old array*/
 			...state,
 			{
 				id: nextMovieId++,
@@ -114,6 +84,22 @@ let moviesReducer = (state = [], action ) => {
 /*------------------------------------------------------*/
 		default:
 		return state			
+	}
+}
+/*Generators*/
+/*------------------------------------------------------*/
+let addMovie = (title, genre) => {
+	return {
+		type: "ADD_MOVIE",
+		title,
+		genre,
+	}
+}
+/*------------------------------------------------------*/
+let removeMovie = (id) => {
+	return {
+		type: "REMOVE_MOVIE",
+		id,
 	}
 }
 
@@ -149,51 +135,21 @@ let currentState = store.getState()
 
 /*------------------------------------------------------*/
 /*Cb dispatched into subscribe, cb are actions*/
-store.dispatch({
-	type: "CHANGE_NAME",
-	name: "Seb"
-})
+store.dispatch(changeName("Seb is now the name"))
 
-store.dispatch({
-	type: "ADD_HOBBY",
-	hobby: "Build machines"
-})
+store.dispatch(addHobby( "Build machines" ))
 
-store.dispatch({
-	type: "ADD_HOBBY",
-	hobby: "Not run"
-})
+store.dispatch(addHobby( "Not run" ))
+
+store.dispatch(addMovie( "Favorite movie numero 1", "terror"))
+
+store.dispatch(changeName("Seb is just awesome"))
+
+store.dispatch(addHobby( "Build helicopters" ))
+
+store.dispatch(addMovie( "Batman 2", "ficion asion" ))
 
 /*remove hobby*/
-store.dispatch({
-	type: "REMOVE_HOBBY",
-	id: 2
-})
-
-store.dispatch({
-	type: "ADD_MOVIE",
-	title: "Favorite movie numero 1",
-	genre: "terror"
-})
-
-store.dispatch({
-	type: "CHANGE_NAME",
-	name: "Seb -is-too-good"
-})
-
-store.dispatch({
-	type: "ADD_HOBBY",
-	hobby: "Build helicopters"
-})
-
-store.dispatch({
-	type: "ADD_MOVIE",
-	title: "Batman 2",
-	genre: "ficion asion"
-})
-
+store.dispatch(removeHobby(2))
 /*Remove movie*/
-store.dispatch({
-	type: "REMOVE_MOVIE",
-	id: 1
-})
+store.dispatch(removeMovie(1))
